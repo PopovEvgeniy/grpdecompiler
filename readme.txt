@@ -1,6 +1,6 @@
                        GRP DECOMPILER 
                           
-                       Version 1.9
+                       Version 1.9.0.1
 
             File extraction tools for GRP pseudo-archives by Popov Evgeniy Alekseyevich
 
@@ -10,10 +10,10 @@ System requirement
 
 Description and usage
 
-This program is created for extract a files from GRP pseudo-archives.
-It are used in games that built on BUILD game engine.
+This program let you extract files from GRP pseudo-archives.
+It is used in games that built on BUILD game engine.
 This program takes a target file name and output path as command line arguments.
-Allways add directory separator(\ or /) at end of output path.
+Always add directory separator(\ or /) at end of output path.
 
 Exit codes
 
@@ -37,7 +37,7 @@ But you can do it under any modern C compiler.
 Source code can be compiled for wide range operation systems, but you need create makefile or build script by yourself.
 I provide only two things: compiled binary file for Windows and makefile for Linux.
 
-Installation and uninstallation under Linux
+Install and uninstall under Linux
 
 Follow this steps:
 
@@ -45,7 +45,7 @@ Follow this steps:
 2.Open terminal and go to source code directory.
 3.
 Run for installation: make install
-Run for uninstallation: make uninstall
+Run for uninstall: make uninstall
 
 Contact
 
@@ -58,6 +58,7 @@ Version history
 1.0.5 - 1.3 - Small changes in source code
 1.4 - Source code was improved. Linux support has been added
 1.5 - Small changes in source code
-1.6 - Small bug with output filenames was fixed
+1.6 - Small bugs with output filenames was fixed
 1.7 - 1.8 - Small changes in source code
 1.9 - Filename checking has been improved
+1.9.0.1 – Documentation was updated
