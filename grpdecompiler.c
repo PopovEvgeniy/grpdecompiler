@@ -1,3 +1,4 @@
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -8,20 +9,20 @@ void show_intro();
 void command_line_help();
 void show_start_message();
 void show_end_message();
-void show_progress(unsigned long int start, unsigned long int stop);
-FILE *open_input_file(char *name);
-FILE *create_output_file(char *name);
-void data_dump(FILE *input, FILE *output, unsigned long int length);
-void write_output_file(FILE *input, char *name, unsigned long int length);
-void check_memory(void *memory);
-char *get_string_memory(unsigned long int length);
-unsigned char check_character(char character);
-char *correct_name(char *name);
-char *get_name(char *path, char *name, unsigned long int path_length);
-unsigned long int check_format(FILE *input);
-grp_block *read_blocks(FILE *input,unsigned long int amount);
-void extract(FILE *input,grp_block *record,unsigned long int amount,char *path);
-void work(char *file, char *path);
+void show_progress(const unsigned long int start,const unsigned long int stop);
+FILE *open_input_file(const char *name);
+FILE *create_output_file(const char *name);
+void data_dump(FILE *input,FILE *output,const size_t length);
+void write_output_file(FILE *input,const char *name,const size_t length);
+void check_memory(const void *memory);
+char *get_string_memory(const size_t length);
+unsigned char check_character(const char target);
+char *correct_name(const char *name);
+char *get_name(const char *path,const char *name);
+size_t check_format(FILE *input);
+grp_block *read_blocks(FILE *input,const size_t amount);
+void extract(FILE *input,const grp_block *record,const size_t amount,const char *path);
+void work(const char *file,const char *path);
 
 int main(int argc, char *argv[])
 {
@@ -39,12 +40,13 @@ int main(int argc, char *argv[])
 
 void show_intro()
 {
- puts(" ");
+ putchar('\n');
  puts("GRP DECOMPILER");
- puts("Version 1.9");
+ puts("Version 2.0.4");
  puts("This program distributed under GNU GENERAL PUBLIC LICENSE");
- puts("File extraction tools for GRP pseudo-archives by Popov Evgeniy Alekseyevich, 2010-2016 years");
- puts(" ");
+ puts("File extraction tools for GRP pseudo-archives by Popov Evgeniy Alekseyevich");
+ puts("2010-2018 years");
+ putchar('\n');
 }
 
 void command_line_help()
@@ -63,17 +65,17 @@ void show_end_message()
  puts("Work finish");
 }
 
-void show_progress(unsigned long int start, unsigned long int stop)
+void show_progress(const unsigned long int start,const unsigned long int stop)
 {
  unsigned long int progress;
  progress=start+1;
  progress*=100;
  progress/=stop;
- printf("\r");
+ putchar('\r');
  printf("Amount of extracted files: %ld from %ld.Progress:%ld%%",start+1,stop,progress);
 }
 
-FILE *open_input_file(char *name)
+FILE *open_input_file(const char *name)
 {
  FILE *file;
  file=fopen(name,"rb");
@@ -86,7 +88,7 @@ FILE *open_input_file(char *name)
  return file;
 }
 
-FILE *create_output_file(char *name)
+FILE *create_output_file(const char *name)
 {
  FILE *file;
  file=fopen(name,"wb");
@@ -99,15 +101,15 @@ FILE *create_output_file(char *name)
  return file;
 }
 
-void data_dump(FILE *input, FILE *output, unsigned long int length)
+void data_dump(FILE *input,FILE *output,const size_t length)
 {
  unsigned char single_byte;
- unsigned long int index;
+ size_t index;
  unsigned char *buffer=NULL;
- buffer=(unsigned char*)calloc(length,1);
+ buffer=(unsigned char*)calloc(length,sizeof(unsigned char));
  if (buffer==NULL)
  {
-  for(index=0;index<length;index++)
+  for(index=0;index<length;++index)
   {
    fread(&single_byte,1,1,input);
    fwrite(&single_byte,1,1,output);
@@ -123,7 +125,7 @@ void data_dump(FILE *input, FILE *output, unsigned long int length)
 
 }
 
-void write_output_file(FILE *input, char *name, unsigned long int length)
+void write_output_file(FILE *input,const char *name,const size_t length)
 {
  FILE *output;
  output=create_output_file(name);
@@ -131,7 +133,7 @@ void write_output_file(FILE *input, char *name, unsigned long int length)
  fclose(output);
 }
 
-void check_memory(void *memory)
+void check_memory(const void *memory)
 {
  if(memory==NULL)
  {
@@ -142,60 +144,56 @@ void check_memory(void *memory)
 
 }
 
-char *get_string_memory(unsigned long int length)
+char *get_string_memory(const size_t length)
 {
  char *memory=NULL;
- memory=(char*)calloc(length+1,1);
+ memory=(char*)calloc(length+1,sizeof(char));
  check_memory(memory);
  return memory;
 }
 
-unsigned char check_character(char character)
+unsigned char check_character(const char target)
 {
  unsigned char result;
- result=0;
- if(isalnum(character)!=0) result=1;
- if((character=='.')||(character=='_')) result=1;
- if((character=='-')||(character=='~')) result=1;
- if((character=='(')||(character==')')) result=1;
- if((character=='{')||(character=='}')) result=1;
- if((character=='@')||(character=='$')) result=1;
- if((character=='!')||(character=='#')) result=1;
- if((character=='%')||(character=='&')) result=1;
- if((character=='^')||(character=='\'')) result=1;
- return result;
-}
-
-char *correct_name(char *name)
-{
- char *result=NULL;
- char *output=NULL;
- unsigned char index,position,length;
- output=get_string_memory(12);
- position=0;
- for (index=0;index<12;index++)
+ result=1;
+ if(isalnum(target)!=0)
  {
-  if (check_character(name[index])==1)
-  {
-   output[position]=name[index];
-   position++;
-  }
-
+  result=0;
  }
- length=strlen(output);
- result=get_string_memory(length);
- strncpy(result,output,length);
- free(output);
+ else
+ {
+  if(target=='.') result=0;
+  if((target=='-')||(target=='_')) result=0;
+ }
  return result;
 }
 
-char *get_name(char *path, char *name, unsigned long int path_length)
+char *correct_name(const char *name)
+{
+ char *result=NULL;
+ char *target=NULL;
+ size_t index,position;
+ position=0;
+ target=get_string_memory(12);
+ for(index=0;index<12;++index)
+ {
+  if(check_character(name[index])==1) continue;
+  target[position]=name[index];
+  ++position;
+ }
+ result=get_string_memory(position);
+ strncpy(result,target,position);
+ free(target);
+ return result;
+}
+
+char *get_name(const char *path,const char *name)
 {
  char *output=NULL;
  char *result=NULL;
- unsigned long int length;
+ size_t length;
  output=correct_name(name);
- length=strlen(output)+path_length;
+ length=strlen(output)+strlen(path);
  result=get_string_memory(length);
  strcpy(result,path);
  strcat(result,output);
@@ -203,7 +201,7 @@ char *get_name(char *path, char *name, unsigned long int path_length)
  return result;
 }
 
-unsigned long int check_format(FILE *input)
+size_t check_format(FILE *input)
 {
  grp_block target;
  fread(&target,sizeof(grp_block),1,input);
@@ -212,10 +210,10 @@ unsigned long int check_format(FILE *input)
   puts("Bad signature of GRP pseudo-archive!");
   exit(3);
  }
- return target.length;
+ return (size_t)target.length;
 }
 
-grp_block *read_blocks(FILE *input,unsigned long int amount)
+grp_block *read_blocks(FILE *input,const size_t amount)
 {
  grp_block *result=NULL;
  result=(grp_block*)calloc(amount,sizeof(grp_block));
@@ -224,26 +222,25 @@ grp_block *read_blocks(FILE *input,unsigned long int amount)
  return result;
 }
 
-void extract(FILE *input,grp_block *record,unsigned long int amount,char *path)
+void extract(FILE *input,const grp_block *record,const size_t amount,const char *path)
 {
- unsigned long int index,path_length;
+ size_t index;
  char *output=NULL;
- path_length=strlen(path);
- for (index=0;index<amount;index++)
+ for (index=0;index<amount;++index)
  {
-  show_progress(index,amount);
-  output=get_name(path,record[index].information,path_length);
-  write_output_file(input,output,record[index].length);
+  show_progress((unsigned long int)index,(unsigned long int)amount);
+  output=get_name(path,record[index].information);
+  write_output_file(input,output,(size_t)record[index].length);
   free(output);
  }
 
 }
 
-void work(char *file, char *path)
+void work(const char *file,const char *path)
 {
  FILE *input;
  grp_block *record=NULL;
- unsigned long int amount;
+ size_t amount;
  input=open_input_file(file);
  amount=check_format(input);
  record=read_blocks(input,amount);
