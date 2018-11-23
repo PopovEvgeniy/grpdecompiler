@@ -1,6 +1,6 @@
                        GRP DECOMPILER 
                           
-                       Version 2.0.4
+                       Version 2.0.4.1
 
             File extraction tools for GRP pseudo-archives by Popov Evgeniy Alekseyevich
 
@@ -44,8 +44,8 @@ Follow this steps:
 1.Extract content of source code archive.
 2.Open terminal and go to source code directory.
 3.
-Run for installation: make install
-Run for uninstall: make uninstall
+Run as root for installation: make install
+Run as root for uninstall: make uninstall
 
 Contact
 
@@ -65,3 +65,4 @@ Version history
 1.9.1 - 1.9.6 - Small changes.
 1.9.8 - 2.0.1 - Small bug with output file names was fixed.
 2.0.2 - 2.0.4 - Small changes.
+2.0.4.1 - Makefile was updated.
