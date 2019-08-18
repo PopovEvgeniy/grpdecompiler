@@ -13,6 +13,7 @@ void show_progress(const unsigned long int start,const unsigned long int stop);
 FILE *open_input_file(const char *name);
 FILE *create_output_file(const char *name);
 void data_dump(FILE *input,FILE *output,const size_t length);
+void fast_data_dump(FILE *input,FILE *output,const size_t length);
 void write_output_file(FILE *input,const char *name,const size_t length);
 void check_memory(const void *memory);
 char *get_string_memory(const size_t length);
@@ -42,10 +43,10 @@ void show_intro()
 {
  putchar('\n');
  puts("GRP DECOMPILER");
- puts("Version 2.0.4");
+ puts("Version 2.0.6");
  puts("This program distributed under GNU GENERAL PUBLIC LICENSE");
  puts("File extraction tools for GRP pseudo-archives by Popov Evgeniy Alekseyevich");
- puts("2010-2018 years");
+ puts("2010-2019 years");
  putchar('\n');
 }
 
@@ -61,7 +62,7 @@ void show_start_message()
 
 void show_end_message()
 {
- puts(" ");
+ putchar('\n');
  puts("Work finish");
 }
 
@@ -77,49 +78,55 @@ void show_progress(const unsigned long int start,const unsigned long int stop)
 
 FILE *open_input_file(const char *name)
 {
- FILE *file;
- file=fopen(name,"rb");
- if (file==NULL)
+ FILE *target;
+ target=fopen(name,"rb");
+ if (target==NULL)
  {
-  puts(" ");
-  puts("File operation error");
-  exit(2);
+  putchar('\n');
+  puts("Can't open input file");
+  exit(1);
  }
- return file;
+ return target;
 }
 
 FILE *create_output_file(const char *name)
 {
- FILE *file;
- file=fopen(name,"wb");
- if (file==NULL)
+ FILE *target;
+ target=fopen(name,"wb");
+ if (target==NULL)
  {
-  puts(" ");
-  puts("File operation error");
+  putchar('\n');
+  puts("Can't create ouput file");
   exit(2);
  }
- return file;
+ return target;
 }
 
 void data_dump(FILE *input,FILE *output,const size_t length)
 {
- unsigned char single_byte;
+ unsigned char data;
  size_t index;
+ data=0;
+ for (index=0;index<length;++index)
+ {
+  fread(&data,sizeof(unsigned char),1,input);
+  fwrite(&data,sizeof(unsigned char),1,input);
+ }
+
+}
+
+void fast_data_dump(FILE *input,FILE *output,const size_t length)
+{
  unsigned char *buffer=NULL;
  buffer=(unsigned char*)calloc(length,sizeof(unsigned char));
  if (buffer==NULL)
  {
-  for(index=0;index<length;++index)
-  {
-   fread(&single_byte,1,1,input);
-   fwrite(&single_byte,1,1,output);
-  }
-
+  data_dump(input,output,length);
  }
  else
  {
-  fread(buffer,length,1,input);
-  fwrite(buffer,length,1,output);
+  fread(buffer,sizeof(unsigned char),length,input);
+  fwrite(buffer,sizeof(unsigned char),length,output);
   free(buffer);
  }
 
@@ -129,7 +136,7 @@ void write_output_file(FILE *input,const char *name,const size_t length)
 {
  FILE *output;
  output=create_output_file(name);
- data_dump(input,output,length);
+ fast_data_dump(input,output,length);
  fclose(output);
 }
 
@@ -137,9 +144,9 @@ void check_memory(const void *memory)
 {
  if(memory==NULL)
  {
-  puts(" ");
+  putchar('\n');
   puts("Can't allocate memory");
-  exit(1);
+  exit(3);
  }
 
 }
@@ -208,7 +215,7 @@ size_t check_format(FILE *input)
  if(strncmp(target.information,"KenSilverman",12)!=0)
  {
   puts("Bad signature of GRP pseudo-archive!");
-  exit(3);
+  exit(4);
  }
  return (size_t)target.length;
 }

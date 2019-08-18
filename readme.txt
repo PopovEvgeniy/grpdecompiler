@@ -1,6 +1,6 @@
                        GRP DECOMPILER 
                           
-                       Version 2.0.4.1
+                       Version 2.0.6
 
             File extraction tools for GRP pseudo-archives by Popov Evgeniy Alekseyevich
 
@@ -18,9 +18,10 @@ Always add directory separator(\ or /) at end of output path.
 Exit codes
 
 0 - Operation successfully complete.
-1 - Can't allocate memory.
-2 - File operation error.
-3 - Invalid format.
+1 - Can't open input file.
+2 - Can't create output file.
+3 - Can't allocate memory.
+4 - Invalid format.
 
 License
 
@@ -66,3 +67,4 @@ Version history
 1.9.8 - 2.0.1 - Small bug with output file names was fixed.
 2.0.2 - 2.0.4 - Small changes.
 2.0.4.1 - Makefile was updated.
+2.0.5 - 2.0.6 - Small changes.
