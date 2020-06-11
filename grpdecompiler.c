@@ -43,10 +43,10 @@ void show_intro()
 {
  putchar('\n');
  puts("GRP DECOMPILER");
- puts("Version 2.0.6");
+ puts("Version 2.0.7");
  puts("This program distributed under GNU GENERAL PUBLIC LICENSE");
  puts("File extraction tools for GRP pseudo-archives by Popov Evgeniy Alekseyevich");
- puts("2010-2019 years");
+ puts("2010-2020 years");
  putchar('\n');
 }
 
@@ -110,7 +110,7 @@ void data_dump(FILE *input,FILE *output,const size_t length)
  for (index=0;index<length;++index)
  {
   fread(&data,sizeof(unsigned char),1,input);
-  fwrite(&data,sizeof(unsigned char),1,input);
+  fwrite(&data,sizeof(unsigned char),1,output);
  }
 
 }
