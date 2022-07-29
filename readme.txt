@@ -1,6 +1,6 @@
                        GRP DECOMPILER 
                           
-                       Version 2.0.7
+                       Version 2.0.7.1
 
             File extraction tools for GRP pseudo-archives by Popov Evgeniy Alekseyevich
 
@@ -33,14 +33,14 @@ GRP DECOMPILER work with all BUILD engine games.
 
 Source code
 
-The program source code was compiled under Open Watcom.
+The program source code compiled under Open Watcom.
 But you can do it under any modern C compiler.
-Source code can be compiled for wide range operation systems, but you need create makefile or build script by yourself.
+Source code can be compiled for wide range operation systems, but you need to create makefile or build script by yourself.
 I provide only two things: compiled binary file for Windows and makefile for Linux.
 
 Install and uninstall under Linux
 
-Follow this steps:
+Follow these steps:
 
 1.Extract content of source code archive.
 2.Open terminal and go to source code directory.
@@ -57,15 +57,16 @@ Version history
 0.1 - 0.9 - Internal unstable builds
 1.0 - 1.0.4 - Stable branch
 1.0.5 - 1.3 - Small changes in source code
-1.4 - Source code was improved. Linux support has been added
+1.4 - Source code improved. Linux support added
 1.5 - Small changes in source code
-1.6 - Small bugs with output filenames was fixed
+1.6 - Small bugs with output filenames fixed
 1.7 - 1.8 - Small changes in source code
-1.9 - Filename checking has been improved
-1.9.0.1 – Documentation was updated
+1.9 - Filename checking improved
+1.9.0.1 – Documentation updated
 1.9.1 - 1.9.6 - Small changes
-1.9.8 - 2.0.1 - Small bug with output file names was fixed
+1.9.8 - 2.0.1 - Small bug with output file names fixed
 2.0.2 - 2.0.4 - Small changes
-2.0.4.1 - Makefile was updated
+2.0.4.1 - Makefile updated
 2.0.5 - 2.0.6 - Small changes
-2.0.7 - Small bug was fixed
+2.0.7 - Small bug fixed
+2.0.7.1 - Makefile updated
