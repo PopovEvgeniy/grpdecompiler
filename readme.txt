@@ -1,6 +1,6 @@
                        GRP DECOMPILER 
                           
-                       Version 2.0.7.1
+                       Version 2.0.7.2
 
             File extraction tools for GRP pseudo-archives by Popov Evgeniy Alekseyevich
 
@@ -35,7 +35,7 @@ Source code
 
 The program source code compiled under Open Watcom.
 But you can do it under any modern C compiler.
-Source code can be compiled for wide range operation systems, but you need to create makefile or build script by yourself.
+Source code can be compiled for wide range operating systems, but you need to create makefile or build script by yourself.
 I provide only two things: compiled binary file for Windows and makefile for Linux.
 
 Install and uninstall under Linux
@@ -69,4 +69,4 @@ Version history
 2.0.4.1 - Makefile updated
 2.0.5 - 2.0.6 - Small changes
 2.0.7 - Small bug fixed
-2.0.7.1 - Makefile updated
+2.0.7.1 - 2.0.7.2 - Makefile updated
