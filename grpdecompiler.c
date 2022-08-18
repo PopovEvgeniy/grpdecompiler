@@ -6,9 +6,7 @@
 #include "format.h"
 
 void show_intro();
-void command_line_help();
-void show_start_message();
-void show_end_message();
+void show_message(const char *message);
 void show_progress(const unsigned long int start,const unsigned long int stop);
 FILE *open_input_file(const char *name);
 FILE *create_output_file(const char *name);
@@ -30,11 +28,13 @@ int main(int argc, char *argv[])
  show_intro();
  if (argc<3)
  {
-  command_line_help();
+  show_message("You must give a target file name and output path as command line arguments!");
  }
  else
  {
+  show_message("Extracting a files... Please wait");
   work(argv[1],argv[2]);
+  show_message("Work finish");
  }
  return 0;
 }
@@ -43,27 +43,17 @@ void show_intro()
 {
  putchar('\n');
  puts("GRP DECOMPILER");
- puts("Version 2.0.7");
+ puts("Version 2.0.8");
  puts("This program distributed under GNU GENERAL PUBLIC LICENSE");
  puts("File extraction tools for GRP pseudo-archives by Popov Evgeniy Alekseyevich");
- puts("2010-2020 years");
+ puts("2010-2022 years");
  putchar('\n');
 }
 
-void command_line_help()
-{
- puts("You must give a target file name and output path as command line arguments!");
-}
-
-void show_start_message()
-{
- puts("Extracting a files... Please wait");
-}
-
-void show_end_message()
+void show_message(const char *message)
 {
  putchar('\n');
- puts("Work finish");
+ puts(message);
 }
 
 void show_progress(const unsigned long int start,const unsigned long int stop)
@@ -251,9 +241,7 @@ void work(const char *file,const char *path)
  input=open_input_file(file);
  amount=check_format(input);
  record=read_blocks(input,amount);
- show_start_message();
  extract(input,record,amount,path);
- show_end_message();
  fclose(input);
  free(record);
 }
