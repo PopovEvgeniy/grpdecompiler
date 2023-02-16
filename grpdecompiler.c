@@ -43,10 +43,10 @@ void show_intro()
 {
  putchar('\n');
  puts("GRP DECOMPILER");
- puts("Version 2.1");
+ puts("Version 2.1.1");
  puts("This program distributed under GNU GENERAL PUBLIC LICENSE");
  puts("File extraction tools for GRP pseudo-archives by Popov Evgeniy Alekseyevich");
- puts("2010-2022 years");
+ puts("2010-2023 years");
 }
 
 void show_message(const char *message)
@@ -58,8 +58,7 @@ void show_message(const char *message)
 void show_progress(const unsigned long int start,const unsigned long int stop)
 {
  unsigned long int progress;
- progress=start+1;
- progress*=100;
+ progress=(start+1)*100;
  progress/=stop;
  putchar('\r');
  printf("Amount of extracted files: %ld from %ld.Progress:%ld%%",start+1,stop,progress);
@@ -71,7 +70,7 @@ FILE *open_input_file(const char *name)
  target=fopen(name,"rb");
  if (target==NULL)
  {
-  puts("Can't open input file");
+  show_message("Can't open input file");
   exit(1);
  }
  return target;
@@ -200,7 +199,7 @@ size_t check_format(FILE *input)
  fread(&target,sizeof(grp_block),1,input);
  if(strncmp(target.information,"KenSilverman",12)!=0)
  {
-  puts("Bad signature of GRP pseudo-archive!");
+  show_message("Bad signature of GRP pseudo-archive!");
   exit(4);
  }
  return (size_t)target.length;
