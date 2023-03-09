@@ -43,10 +43,9 @@ void show_intro()
 {
  putchar('\n');
  puts("GRP DECOMPILER");
- puts("Version 2.1.1");
+ puts("Version 2.1.2");
  puts("This program distributed under GNU GENERAL PUBLIC LICENSE");
- puts("File extraction tools for GRP pseudo-archives by Popov Evgeniy Alekseyevich");
- puts("2010-2023 years");
+ puts("File extraction tools for GRP pseudo-archives by Popov Evgeniy Alekseyevich, 2010-2023 years");
 }
 
 void show_message(const char *message)
@@ -208,7 +207,7 @@ size_t check_format(FILE *input)
 grp_block *read_blocks(FILE *input,const size_t amount)
 {
  grp_block *result=NULL;
- result=(grp_block*)calloc(amount,sizeof(grp_block));
+ result=(grp_block*)malloc(amount*sizeof(grp_block));
  check_memory(result);
  fread(result,sizeof(grp_block),amount,input);
  return result;

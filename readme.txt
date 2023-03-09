@@ -1,6 +1,6 @@
                        GRP DECOMPILER 
                           
-                       Version 2.1.1
+                       Version 2.1.2
 
             File extraction tools for GRP pseudo-archives by Popov Evgeniy Alekseyevich
 
@@ -70,4 +70,4 @@ Version history
 2.0.5 - 2.0.6 - Small changes.
 2.0.7 - Small bug fixed.
 2.0.7.1 - 2.0.7.2 - Makefile updated.
-2.0.8 - 2.1.1 - Small changes.
+2.0.8 - 2.1.2 - Small changes.
