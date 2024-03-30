@@ -1,12 +1,12 @@
                        GRP DECOMPILER 
                           
-                       Version 2.1.2
+                       Version 2.1.3
 
             File extraction tools for GRP pseudo-archives by Popov Evgeniy Alekseyevich
 
 System requirement
 
-52 kilobytes free space on storage media. 
+68 kilobytes free space on storage media. 
 
 Description and usage
 
@@ -70,4 +70,4 @@ Version history
 2.0.5 - 2.0.6 - Small changes.
 2.0.7 - Small bug fixed.
 2.0.7.1 - 2.0.7.2 - Makefile updated.
-2.0.8 - 2.1.2 - Small changes.
+2.0.8 - 2.1.3 - Small changes.

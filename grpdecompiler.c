@@ -43,9 +43,9 @@ void show_intro()
 {
  putchar('\n');
  puts("GRP DECOMPILER");
- puts("Version 2.1.2");
+ puts("Version 2.1.3");
  puts("This program distributed under GNU GENERAL PUBLIC LICENSE");
- puts("File extraction tools for GRP pseudo-archives by Popov Evgeniy Alekseyevich, 2010-2023 years");
+ puts("File extraction tools for GRP pseudo-archives by Popov Evgeniy Alekseyevich, 2010-2024 years");
 }
 
 void show_message(const char *message)
@@ -69,7 +69,7 @@ FILE *open_input_file(const char *name)
  target=fopen(name,"rb");
  if (target==NULL)
  {
-  show_message("Can't open input file");
+  puts("Can't open input file");
   exit(1);
  }
  return target;
@@ -198,7 +198,7 @@ size_t check_format(FILE *input)
  fread(&target,sizeof(grp_block),1,input);
  if(strncmp(target.information,"KenSilverman",12)!=0)
  {
-  show_message("Bad signature of GRP pseudo-archive!");
+  puts("Bad signature of GRP pseudo-archive!");
   exit(4);
  }
  return (size_t)target.length;
