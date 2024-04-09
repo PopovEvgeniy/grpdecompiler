@@ -1,4 +1,4 @@
-40
+42
 targetIdent
 0
 MProject
@@ -53,8 +53,8 @@ WString
 WINLINK
 14
 WString
-14
-?????Debug all
+16
+?????WLINK_d_all
 1
 0
 15
@@ -65,8 +65,8 @@ WString
 WINLINK
 17
 WString
-13
-?????Map file
+15
+?????WLINK_op_m
 1
 0
 18
@@ -78,7 +78,7 @@ WVList
 0
 19
 WPickList
-2
+5
 20
 MItem
 3
@@ -98,8 +98,8 @@ WString
 WCC
 25
 WString
-29
-?????No debugging information
+11
+?????WCG_d0
 1
 1
 26
@@ -110,8 +110,8 @@ WString
 WCC
 28
 WString
-24
-?????Full debugging info
+11
+?????WCG_d2
 1
 0
 29
@@ -122,8 +122,8 @@ WString
 WCC
 31
 WString
-30
-??2??80386 stack-based calling
+11
+??2??WCG_3s
 1
 1
 32
@@ -134,8 +134,8 @@ WString
 WCC
 34
 WString
-39
-??2??Pentium Pro register-based calling
+11
+??2??WCG_6r
 1
 0
 35
@@ -160,6 +160,60 @@ WVList
 WVList
 0
 20
+1
+1
+0
+40
+MItem
+3
+*.h
+41
+WString
+3
+NIL
+42
+WVList
+0
+43
+WVList
+0
+-1
+1
+1
+0
+44
+MItem
+8
+format.h
+45
+WString
+3
+NIL
+46
+WVList
+0
+47
+WVList
+0
+40
+1
+1
+0
+48
+MItem
+15
+grpdecompiler.h
+49
+WString
+3
+NIL
+50
+WVList
+0
+51
+WVList
+0
+40
 1
 1
 0

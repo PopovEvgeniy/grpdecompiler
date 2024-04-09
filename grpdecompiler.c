@@ -1,8 +1,4 @@
-#include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h>
+#include "grpdecompiler.h"
 #include "format.h"
 
 void show_intro();
@@ -43,7 +39,7 @@ void show_intro()
 {
  putchar('\n');
  puts("GRP DECOMPILER");
- puts("Version 2.1.3");
+ puts("Version 2.1.4");
  puts("This program distributed under GNU GENERAL PUBLIC LICENSE");
  puts("File extraction tools for GRP pseudo-archives by Popov Evgeniy Alekseyevich, 2010-2024 years");
 }
