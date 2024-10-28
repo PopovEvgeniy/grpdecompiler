@@ -1,6 +1,6 @@
                        GRP DECOMPILER 
                           
-                       Version 2.1.5.1
+                       Version 2.1.5.2
 
             File extraction tools for GRP pseudo-archives by Popov Evgeniy Alekseyevich
 
@@ -34,8 +34,8 @@ GRP DECOMPILER works with all BUILD engine games.
 Source code
 
 The code was compiled under Open Watcom.
-But you can compile it under any modern C compiler.
-The source code can be compiled for a wide range of operating systems, but you need to create a makefile or build script by yourself.
+But you can compile it with any modern C compiler.
+The source code can be compiled for a wide range of operating systems, but you need to create a makefile or a build script by yourself.
 I provide only two things: the binary file for Windows and the makefile for Linux.
 
 Install and uninstall under Linux
@@ -45,7 +45,7 @@ Follow these steps:
 1. Extract the content of the source code archive.
 2. Open a terminal and go to the source code directory.
 3.
-Run as root to installation: make install
+Run as root to install: make install
 Run as root to uninstall: make uninstall
 
 Contact
@@ -57,21 +57,21 @@ Version history
 0.1-0.9: The internal unstable builds.
 1.0-1.0.4: The stable branch.
 1.0.5–1.3: The small changes in the source code.
-1.4: The source code improved. Linux support has been added.
+1.4: The source code has improved. Linux support has been added.
 1.5: The small changes in the source code.
-1.6: The small bugs with the output filenames are fixed.
+1.6: The small bug with the output file names has been fixed.
 1.7-1.8: The small changes in the source code.
-1.9: The filename checking improved.
-1.9.0.1: Documentation updated.
+1.9: The filename checking has improved.
+1.9.0.1: The documentation has been updated.
 1.9.1-1.9.6: The small changes.
-1.9.8-2.0.1: The small bug with the output filenames is fixed.
+1.9.8-2.0.1: The small bug with the output file names has been fixed.
 2.0.2-2.0.4: The small changes.
-2.0.4.1: The makefile updated.
+2.0.4.1: The makefile has been updated.
 2.0.5-2.0.6: The small changes.
-2.0.7: A small bug is fixed.
-2.0.7.1-2.0.7.2: The makefile updated.
+2.0.7: A small bug has been fixed.
+2.0.7.1-2.0.7.2: The makefile has been updated.
 2.0.8: 2.1.3: The small changes.
-2.1.4: Visual C++ support improved.
-2.1.4.1: Documentation updated.
+2.1.4: Visual C++ support has improved.
+2.1.4.1: The documentation has been updated.
 2.1.5: The small changes.
-2.1.5.1: Documentation updated.
+2.1.5.1-2.1.5.2: The documentation has been updated.
