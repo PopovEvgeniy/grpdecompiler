@@ -39,7 +39,7 @@ void show_intro()
 {
  putchar('\n');
  puts("GRP DECOMPILER");
- puts("Version 2.1.5");
+ puts("Version 2.1.6");
  puts("This program is distributed under GNU GENERAL PUBLIC LICENSE");
  puts("File extraction tools for GRP pseudo-archives by Popov Evgeniy Alekseyevich, 2010-2024 years");
 }

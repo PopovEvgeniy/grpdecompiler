@@ -1,12 +1,12 @@
                        GRP DECOMPILER 
                           
-                       Version 2.1.5.2
+                       Version 2.1.6
 
             File extraction tools for GRP pseudo-archives by Popov Evgeniy Alekseyevich
 
 System requirements
 
-68 kilobytes of free space on storage media. 
+36 kilobytes of free space on storage media. 
 
 Description and usage
 
@@ -33,7 +33,7 @@ GRP DECOMPILER works with all BUILD engine games.
 
 Source code
 
-The code was compiled under Open Watcom.
+The code was compiled under Tiny C Compiler.
 But you can compile it with any modern C compiler.
 The source code can be compiled for a wide range of operating systems, but you need to create a makefile or a build script by yourself.
 I provide only two things: the binary file for Windows and the makefile for Linux.
@@ -75,3 +75,4 @@ Version history
 2.1.4.1: The documentation has been updated.
 2.1.5: The small changes.
 2.1.5.1-2.1.5.2: The documentation has been updated.
+2.1.6: The source code was recompiled under Tiny C Compiler.
