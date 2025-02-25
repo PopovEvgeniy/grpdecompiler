@@ -1,6 +1,6 @@
                        GRP DECOMPILER 
                           
-                       Version 2.1.7
+                       Version 2.1.7.1
 
             The file extraction tool for GRP pseudo-archives by Popov Evgeniy Alekseyevich
 
@@ -77,3 +77,4 @@ Version history
 2.1.5.1-2.1.5.2: The documentation has been updated.
 2.1.6: The source code was recompiled under Tiny C Compiler.
 2.1.7: The small changes.
+2.1.7.1: The makefile has been updated.

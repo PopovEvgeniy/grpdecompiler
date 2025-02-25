@@ -5,4 +5,4 @@
 	@echo Installation successfully complete
 uninstall:
 	@rm -f /bin/grpdecompiler
-	@echo Uninstallation was successfully complete
+	@echo Uninstallation successfully complete
