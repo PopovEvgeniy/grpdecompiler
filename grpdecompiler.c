@@ -39,9 +39,9 @@ void show_intro()
 {
  putchar('\n');
  puts("GRP DECOMPILER");
- puts("Version 2.1.6");
+ puts("Version 2.1.7");
  puts("This program is distributed under GNU GENERAL PUBLIC LICENSE");
- puts("File extraction tools for GRP pseudo-archives by Popov Evgeniy Alekseyevich, 2010-2024 years");
+ puts("The file extraction tool for GRP pseudo-archives by Popov Evgeniy Alekseyevich, 2010-2025 years");
 }
 
 void show_message(const char *message)
@@ -182,8 +182,7 @@ char *get_name(const char *path,const char *name)
  output=correct_name(name);
  length=strlen(output)+strlen(path);
  result=get_string_memory(length);
- strcpy(result,path);
- strcat(result,output);
+ sprintf(result,"%s%s",path,output);
  free(output);
  return result;
 }
