@@ -1,6 +1,6 @@
                        GRP DECOMPILER 
                           
-                       Version 2.1.7.1
+                       Version 2.1.7.2
 
             The file extraction tool for GRP pseudo-archives by Popov Evgeniy Alekseyevich
 
@@ -25,7 +25,7 @@ Exit codes
 
 License
 
-This program is distributed under GNU GENERAL PUBLIC LICENSE.
+This program is distributed under the GNU GENERAL PUBLIC LICENSE.
 
 Compatibility
 
@@ -47,10 +47,6 @@ Follow these steps:
 3.
 Run as root to install: make install
 Run as root to uninstall: make uninstall
-
-Contact
-
-You can send me a letter at tuzik87@inbox.ru.
 
 Version history
 
@@ -78,3 +74,4 @@ Version history
 2.1.6: The source code was recompiled under Tiny C Compiler.
 2.1.7: The small changes.
 2.1.7.1: The makefile has been updated.
+2.1.7.2: The documentation has been updated.
