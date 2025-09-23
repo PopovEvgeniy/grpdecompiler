@@ -11,7 +11,6 @@ void fast_data_dump(FILE *input,FILE *output,const size_t length);
 void write_output_file(FILE *input,const char *name,const size_t length);
 void check_memory(const void *memory);
 char *get_string_memory(const size_t length);
-unsigned char check_character(const char target);
 char *correct_name(const char *name);
 char *get_name(const char *path,const char *name);
 size_t check_format(FILE *input);
@@ -39,9 +38,9 @@ void show_intro()
 {
  putchar('\n');
  puts("GRP DECOMPILER");
- puts("Version 2.1.8");
- puts("This program is distributed under the GNU GENERAL PUBLIC LICENSE");
+ puts("Version 2.2.3");
  puts("The file extraction tool for GRP pseudo-archives by Popov Evgeniy Alekseyevich, 2010-2025 years");
+ puts("This program is distributed under the GNU GENERAL PUBLIC LICENSE");
 }
 
 void show_message(const char *message)
@@ -139,39 +138,20 @@ char *get_string_memory(const size_t length)
  return memory;
 }
 
-unsigned char check_character(const char target)
-{
- unsigned char result;
- result=1;
- if(isalnum(target)!=0)
- {
-  result=0;
- }
- else
- {
-  if(target=='.') result=0;
-  if((target=='-')||(target=='_')) result=0;
- }
- return result;
-}
-
 char *correct_name(const char *name)
 {
- char *result=NULL;
- char *target=NULL;
- size_t index,position;
- position=0;
- target=get_string_memory(12);
- for(index=0;index<12;++index)
+ char *result;
+ size_t index;
+ for (index=0;index<12;++index)
  {
-  if(check_character(name[index])==1) continue;
-  target[position]=name[index];
-  ++position;
+  if (name[index]==0)
+  {
+   break;
+  }
+
  }
- result=get_string_memory(position);
- strncpy(result,target,position);
- free(target);
- return result;
+ result=get_string_memory(index);
+ return strncpy(result,name,index);
 }
 
 char *get_name(const char *path,const char *name)
