@@ -38,7 +38,7 @@ void show_intro()
 {
  putchar('\n');
  puts("GRP DECOMPILER");
- puts("Version 2.2.3");
+ puts("Version 2.2.4");
  puts("The file extraction tool for GRP pseudo-archives by Popov Evgeniy Alekseyevich, 2010-2025 years");
  puts("This program is distributed under the GNU GENERAL PUBLIC LICENSE");
 }
@@ -55,7 +55,7 @@ void show_progress(const unsigned long int start,const unsigned long int stop)
  progress=(start+1)*100;
  progress/=stop;
  putchar('\r');
- printf("Amount of the extracted files: %ld from %ld. The progress:%ld%%",start+1,stop,progress);
+ printf("Amount of the extracted files: %lu from %lu. The progress:%lu%%",start+1,stop,progress);
 }
 
 FILE *open_input_file(const char *name)
