@@ -4,13 +4,12 @@
 void show_intro();
 void show_message(const char *message);
 void show_progress(const unsigned long int start,const unsigned long int stop);
+void check_memory(const void *memory);
+char *get_memory(const size_t length);
 FILE *open_input_file(const char *name);
 FILE *create_output_file(const char *name);
-void data_dump(FILE *input,FILE *output,const size_t length);
 void fast_data_dump(FILE *input,FILE *output,const size_t length);
 void write_output_file(FILE *input,const char *name,const size_t length);
-void check_memory(const void *memory);
-char *get_string_memory(const size_t length);
 char *correct_name(const char *name);
 char *get_name(const char *path,const char *name);
 size_t check_format(FILE *input);
@@ -38,7 +37,7 @@ void show_intro()
 {
  putchar('\n');
  puts("GRP DECOMPILER");
- puts("Version 2.2.4");
+ puts("Version 2.2.7");
  puts("The file extraction tool for GRP pseudo-archives by Popov Evgeniy Alekseyevich, 2010-2025 years");
  puts("This program is distributed under the GNU GENERAL PUBLIC LICENSE");
 }
@@ -56,6 +55,24 @@ void show_progress(const unsigned long int start,const unsigned long int stop)
  progress/=stop;
  putchar('\r');
  printf("Amount of the extracted files: %lu from %lu. The progress:%lu%%",start+1,stop,progress);
+}
+
+void check_memory(const void *memory)
+{
+ if(memory==NULL)
+ {
+  show_message("Can't allocate memory");
+  exit(3);
+ }
+
+}
+
+char *get_memory(const size_t length)
+{
+ char *memory=NULL;
+ memory=(char*)calloc(length,sizeof(char));
+ check_memory(memory);
+ return memory;
 }
 
 FILE *open_input_file(const char *name)
@@ -82,34 +99,26 @@ FILE *create_output_file(const char *name)
  return target;
 }
 
-void data_dump(FILE *input,FILE *output,const size_t length)
-{
- unsigned char data;
- size_t index;
- data=0;
- for (index=0;index<length;++index)
- {
-  fread(&data,sizeof(unsigned char),1,input);
-  fwrite(&data,sizeof(unsigned char),1,output);
- }
-
-}
-
 void fast_data_dump(FILE *input,FILE *output,const size_t length)
 {
- unsigned char *buffer=NULL;
- buffer=(unsigned char*)calloc(length,sizeof(unsigned char));
- if (buffer==NULL)
+ char *buffer;
+ size_t current,elapsed,block;
+ current=0;
+ elapsed=0;
+ block=4096;
+ buffer=get_memory(block);
+ while (current<length)
  {
-  data_dump(input,output,length);
+  elapsed=length-current;
+  if (elapsed<block)
+  {
+   block=elapsed;
+  }
+  fread(buffer,sizeof(char),block,input);
+  fwrite(buffer,sizeof(char),block,output);
+  current+=block;
  }
- else
- {
-  fread(buffer,sizeof(unsigned char),length,input);
-  fwrite(buffer,sizeof(unsigned char),length,output);
-  free(buffer);
- }
-
+ free(buffer);
 }
 
 void write_output_file(FILE *input,const char *name,const size_t length)
@@ -118,24 +127,6 @@ void write_output_file(FILE *input,const char *name,const size_t length)
  output=create_output_file(name);
  fast_data_dump(input,output,length);
  fclose(output);
-}
-
-void check_memory(const void *memory)
-{
- if(memory==NULL)
- {
-  show_message("Can't allocate memory");
-  exit(3);
- }
-
-}
-
-char *get_string_memory(const size_t length)
-{
- char *memory=NULL;
- memory=(char*)calloc(length+1,sizeof(char));
- check_memory(memory);
- return memory;
 }
 
 char *correct_name(const char *name)
@@ -150,7 +141,7 @@ char *correct_name(const char *name)
   }
 
  }
- result=get_string_memory(index);
+ result=get_memory(index+1);
  return strncpy(result,name,index);
 }
 
@@ -161,7 +152,7 @@ char *get_name(const char *path,const char *name)
  size_t length;
  output=correct_name(name);
  length=strlen(output)+strlen(path);
- result=get_string_memory(length);
+ result=get_memory(length+1);
  sprintf(result,"%s%s",path,output);
  free(output);
  return result;
