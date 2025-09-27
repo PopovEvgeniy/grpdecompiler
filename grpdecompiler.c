@@ -38,7 +38,7 @@ void show_intro()
 {
  putchar('\n');
  puts("GRP DECOMPILER");
- puts("Version 2.2.8");
+ puts("Version 2.2.9");
  puts("The file extraction tool for GRP pseudo-archives by Popov Evgeniy Alekseyevich, 2010-2025 years");
  puts("This program is distributed under the GNU GENERAL PUBLIC LICENSE");
 }
@@ -125,7 +125,7 @@ void data_dump(FILE *input,FILE *output,const size_t length)
 void fast_data_dump(FILE *input,FILE *output,const size_t length)
 {
  char *buffer;
- buffer=get_memory(length);
+ buffer=(char*)malloc(length);
  if (buffer==NULL)
  {
   data_dump(input,output,length);
