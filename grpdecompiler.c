@@ -8,6 +8,7 @@ void check_memory(const void *memory);
 char *get_memory(const size_t length);
 FILE *open_input_file(const char *name);
 FILE *create_output_file(const char *name);
+void data_dump(FILE *input,FILE *output,const size_t length);
 void fast_data_dump(FILE *input,FILE *output,const size_t length);
 void write_output_file(FILE *input,const char *name,const size_t length);
 char *correct_name(const char *name);
@@ -37,7 +38,7 @@ void show_intro()
 {
  putchar('\n');
  puts("GRP DECOMPILER");
- puts("Version 2.2.7");
+ puts("Version 2.2.8");
  puts("The file extraction tool for GRP pseudo-archives by Popov Evgeniy Alekseyevich, 2010-2025 years");
  puts("This program is distributed under the GNU GENERAL PUBLIC LICENSE");
 }
@@ -99,7 +100,7 @@ FILE *create_output_file(const char *name)
  return target;
 }
 
-void fast_data_dump(FILE *input,FILE *output,const size_t length)
+void data_dump(FILE *input,FILE *output,const size_t length)
 {
  char *buffer;
  size_t current,elapsed,block;
@@ -119,6 +120,23 @@ void fast_data_dump(FILE *input,FILE *output,const size_t length)
   current+=block;
  }
  free(buffer);
+}
+
+void fast_data_dump(FILE *input,FILE *output,const size_t length)
+{
+ char *buffer;
+ buffer=get_memory(length);
+ if (buffer==NULL)
+ {
+  data_dump(input,output,length);
+ }
+ else
+ {
+  fread(buffer,sizeof(char),length,input);
+  fwrite(buffer,sizeof(char),length,output);
+  free(buffer);
+ }
+
 }
 
 void write_output_file(FILE *input,const char *name,const size_t length)
