@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
  }
  else
  {
-  show_message("Extracting a files... Please wait");
+  show_message("Extracting the files... Please wait");
   work(argv[1],argv[2]);
   show_message("The work has been finished");
  }
@@ -38,7 +38,7 @@ void show_intro()
 {
  putchar('\n');
  puts("GRP DECOMPILER");
- puts("Version 2.3");
+ puts("Version 2.3.1");
  puts("The file extraction tool for GRP pseudo-archives by Popov Evgeniy Alekseyevich, 2010-2025 years");
  puts("This program is distributed under the GNU GENERAL PUBLIC LICENSE");
 }
@@ -183,13 +183,13 @@ size_t check_format(FILE *input)
   puts("The invalid format!");
   exit(4);
  }
- return (size_t)target.length;
+ return target.length;
 }
 
 grp_block *read_blocks(FILE *input,const size_t amount)
 {
  grp_block *result=NULL;
- result=(grp_block*)malloc(amount*sizeof(grp_block));
+ result=(grp_block*)calloc(amount,sizeof(grp_block));
  check_memory(result);
  fread(result,sizeof(grp_block),amount,input);
  return result;
