@@ -4,16 +4,16 @@
 void show_intro();
 void show_message(const char *message);
 void show_progress(const unsigned long int start,const unsigned long int stop);
-void check_memory(const void *memory);
-char *get_memory(const size_t length);
 FILE *open_input_file(const char *name);
 FILE *create_output_file(const char *name);
+void check_memory(const void *memory);
+size_t check_format(FILE *input);
+char *get_memory(const size_t length);
 void data_dump(FILE *input,FILE *output,const size_t length);
 void fast_data_dump(FILE *input,FILE *output,const size_t length);
 void write_output_file(FILE *input,const char *name,const size_t length);
 char *correct_name(const char *name);
 char *get_name(const char *path,const char *name);
-size_t check_format(FILE *input);
 grp_block *read_blocks(FILE *input,const size_t amount);
 void extract(FILE *input,const grp_block *record,const size_t amount,const char *path);
 void work(const char *file,const char *path);
@@ -38,8 +38,8 @@ void show_intro()
 {
  putchar('\n');
  puts("GRP DECOMPILER");
- puts("Version 2.3.1");
- puts("The file extraction tool for GRP pseudo-archives by Popov Evgeniy Alekseyevich, 2010-2025 years");
+ puts("Version 2.3.2");
+ puts("The file extraction tool for GRP pseudo-archives by Popov Evgeniy Alekseyevich, 2010-2026 years");
  puts("This program is distributed under the GNU GENERAL PUBLIC LICENSE");
 }
 
@@ -51,29 +51,8 @@ void show_message(const char *message)
 
 void show_progress(const unsigned long int start,const unsigned long int stop)
 {
- unsigned long int progress;
- progress=(start+1)*100;
- progress/=stop;
  putchar('\r');
- printf("Amount of the extracted files: %lu from %lu. The progress:%lu%%",start+1,stop,progress);
-}
-
-void check_memory(const void *memory)
-{
- if(memory==NULL)
- {
-  show_message("Can't allocate memory");
-  exit(3);
- }
-
-}
-
-char *get_memory(const size_t length)
-{
- char *memory=NULL;
- memory=(char*)calloc(length,sizeof(char));
- check_memory(memory);
- return memory;
+ printf("Amount of the extracted files: %lu from %lu.The progress:%lu%%",start,stop,(start*100)/stop);
 }
 
 FILE *open_input_file(const char *name)
@@ -98,6 +77,36 @@ FILE *create_output_file(const char *name)
   exit(2);
  }
  return target;
+}
+
+void check_memory(const void *memory)
+{
+ if(memory==NULL)
+ {
+  show_message("Can't allocate memory");
+  exit(3);
+ }
+
+}
+
+size_t check_format(FILE *input)
+{
+ grp_block target;
+ fread(&target,sizeof(grp_block),1,input);
+ if(strncmp(target.information,"KenSilverman",12)!=0)
+ {
+  puts("The invalid format!");
+  exit(4);
+ }
+ return target.length;
+}
+
+char *get_memory(const size_t length)
+{
+ char *memory=NULL;
+ memory=(char*)calloc(length,sizeof(char));
+ check_memory(memory);
+ return memory;
 }
 
 void data_dump(FILE *input,FILE *output,const size_t length)
@@ -174,18 +183,6 @@ char *get_name(const char *path,const char *name)
  return result;
 }
 
-size_t check_format(FILE *input)
-{
- grp_block target;
- fread(&target,sizeof(grp_block),1,input);
- if(strncmp(target.information,"KenSilverman",12)!=0)
- {
-  puts("The invalid format!");
-  exit(4);
- }
- return target.length;
-}
-
 grp_block *read_blocks(FILE *input,const size_t amount)
 {
  grp_block *result=NULL;
@@ -201,7 +198,7 @@ void extract(FILE *input,const grp_block *record,const size_t amount,const char 
  char *output=NULL;
  for (index=0;index<amount;++index)
  {
-  show_progress((unsigned long int)index,(unsigned long int)amount);
+  show_progress((unsigned long int)index+1,(unsigned long int)amount);
   output=get_name(path,record[index].information);
   write_output_file(input,output,(size_t)record[index].length);
   free(output);
