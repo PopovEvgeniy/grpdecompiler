@@ -1,5 +1,5 @@
 typedef struct
 {
  char information[12];
- unsigned long int length:32;
+ unsigned int length;
 } grp_block;
