@@ -6,6 +6,8 @@ void show_message(const char *message);
 void show_progress(const unsigned long int start,const unsigned long int stop);
 FILE *open_input_file(const char *name);
 FILE *create_output_file(const char *name);
+void read_data(void *data,const size_t length,const size_t blocks,FILE *input);
+void write_data(const void *data,const size_t length,const size_t blocks,FILE *output);
 void check_memory(const void *memory);
 size_t check_format(FILE *input);
 char *get_memory(const size_t length);
@@ -38,7 +40,7 @@ void show_intro()
 {
  putchar('\n');
  puts("GRP DECOMPILER");
- puts("Version 2.3.4");
+ puts("Version 2.3.9");
  puts("The file extraction tool for GRP pseudo-archives by Popov Evgeniy Alekseyevich, 2010-2026 years");
  puts("This program is distributed under the GNU GENERAL PUBLIC LICENSE");
 }
@@ -79,12 +81,36 @@ FILE *create_output_file(const char *name)
  return target;
 }
 
+void read_data(void *data,const size_t length,const size_t blocks,FILE *input)
+{
+ fread(data,length,blocks,input);
+ if (ferror(input)!=0)
+ {
+  putchar('\n');
+  puts("Can't read data!");
+  exit(3);
+ }
+
+}
+
+void write_data(const void *data,const size_t length,const size_t blocks,FILE *output)
+{
+ fwrite(data,length,blocks,output);
+ if (ferror(output)!=0)
+ {
+  putchar('\n');
+  puts("Can't write data!");
+  exit(4);
+ }
+
+}
+
 void check_memory(const void *memory)
 {
  if(memory==NULL)
  {
   show_message("Can't allocate memory");
-  exit(3);
+  exit(5);
  }
 
 }
@@ -92,11 +118,11 @@ void check_memory(const void *memory)
 size_t check_format(FILE *input)
 {
  grp_block target;
- fread(&target,sizeof(grp_block),1,input);
+ read_data(&target,sizeof(grp_block),1,input);
  if(strncmp(target.information,"KenSilverman",12)!=0)
  {
   puts("The invalid format!");
-  exit(4);
+  exit(6);
  }
  return target.length;
 }
@@ -123,8 +149,8 @@ void data_dump(FILE *input,FILE *output,const size_t length)
   {
    block=elapsed;
   }
-  fread(buffer,sizeof(char),block,input);
-  fwrite(buffer,sizeof(char),block,output);
+  read_data(buffer,block,sizeof(char),input);
+  write_data(buffer,block,sizeof(char),output);
  }
  free(buffer);
 }
@@ -139,8 +165,8 @@ void fast_data_dump(FILE *input,FILE *output,const size_t length)
  }
  else
  {
-  fread(buffer,sizeof(char),length,input);
-  fwrite(buffer,sizeof(char),length,output);
+  read_data(buffer,length,sizeof(char),input);
+  write_data(buffer,length,sizeof(char),output);
   free(buffer);
  }
 
@@ -188,7 +214,7 @@ grp_block *read_blocks(FILE *input,const size_t amount)
  grp_block *result=NULL;
  result=(grp_block*)calloc(amount,sizeof(grp_block));
  check_memory(result);
- fread(result,sizeof(grp_block),amount,input);
+ read_data(result,sizeof(grp_block),amount,input);
  return result;
 }
 
