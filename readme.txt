@@ -1,6 +1,6 @@
                        GRP DECOMPILER 
                           
-                       Version 2.3.4
+                       Version 2.3.8
 
             The file extraction tool for GRP pseudo-archives by Popov Evgeniy Alekseyevich
 
@@ -16,8 +16,10 @@ Exit codes.
 0: The operation was successfully completed.
 1: Can't open the input file.
 2: Can't create the output file.
-3: Can't allocate memory.
-4: The invalid format.
+3: Can't read data!
+4: Can't write data!
+5: Can't allocate memory.
+6: The invalid format.
 
 License.
 
@@ -75,4 +77,6 @@ Version history.
 2.2.6: The memory usage has reduced.
 2.2.7: The small changes.
 2.2.8: The extraction process has improved.
-2.2.9-2.3.4: The small changes.
+2.2.9-2.3.6: The small changes.
+2.3.7: The file processing has improved.
+2.3.8: The small changes.
