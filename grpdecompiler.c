@@ -40,7 +40,7 @@ void show_intro()
 {
  putchar('\n');
  puts("GRP DECOMPILER");
- puts("Version 2.3.9");
+ puts("Version 2.4");
  puts("The file extraction tool for GRP pseudo-archives by Popov Evgeniy Alekseyevich, 2010-2026 years");
  puts("This program is distributed under the GNU GENERAL PUBLIC LICENSE");
 }
@@ -86,8 +86,7 @@ void read_data(void *data,const size_t length,const size_t blocks,FILE *input)
  fread(data,length,blocks,input);
  if (ferror(input)!=0)
  {
-  putchar('\n');
-  puts("Can't read data!");
+  show_message("Can't read data!");
   exit(3);
  }
 
@@ -98,8 +97,7 @@ void write_data(const void *data,const size_t length,const size_t blocks,FILE *o
  fwrite(data,length,blocks,output);
  if (ferror(output)!=0)
  {
-  putchar('\n');
-  puts("Can't write data!");
+  show_message("Can't write data!");
   exit(4);
  }
 
