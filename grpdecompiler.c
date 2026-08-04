@@ -40,7 +40,7 @@ void show_intro()
 {
  putchar('\n');
  puts("GRP DECOMPILER");
- puts("Version 2.4");
+ puts("Version 2.4.4");
  puts("The file extraction tool for GRP pseudo-archives by Popov Evgeniy Alekseyevich, 2010-2026 years");
  puts("This program is distributed under the GNU GENERAL PUBLIC LICENSE");
 }
@@ -59,7 +59,12 @@ void show_progress(const unsigned long int start,const unsigned long int stop)
 
 FILE *open_input_file(const char *name)
 {
- FILE *target;
+ FILE *target=NULL;
+ if (name==NULL)
+ {
+  puts("Can't open the input file");
+  exit(1);
+ }
  target=fopen(name,"rb");
  if (target==NULL)
  {
@@ -71,7 +76,12 @@ FILE *open_input_file(const char *name)
 
 FILE *create_output_file(const char *name)
 {
- FILE *target;
+ FILE *target=NULL;
+ if (name==NULL)
+ {
+  show_message("Can't create the ouput file");
+  exit(2);
+ }
  target=fopen(name,"wb");
  if (target==NULL)
  {
@@ -135,10 +145,10 @@ char *get_memory(const size_t length)
 
 void data_dump(FILE *input,FILE *output,const size_t length)
 {
- char *buffer;
- size_t current,elapsed,block;
- elapsed=0;
- block=4096;
+ char *buffer=NULL;
+ size_t current=0;
+ size_t elapsed=0;
+ size_t block=4096;
  buffer=get_memory(block);
  for (current=0;current<length;current+=block)
  {
@@ -147,15 +157,15 @@ void data_dump(FILE *input,FILE *output,const size_t length)
   {
    block=elapsed;
   }
-  read_data(buffer,block,sizeof(char),input);
-  write_data(buffer,block,sizeof(char),output);
+  read_data(buffer,sizeof(char),block,input);
+  write_data(buffer,sizeof(char),block,output);
  }
  free(buffer);
 }
 
 void fast_data_dump(FILE *input,FILE *output,const size_t length)
 {
- char *buffer;
+ char *buffer=NULL;
  buffer=(char*)malloc(length);
  if (buffer==NULL)
  {
@@ -163,8 +173,8 @@ void fast_data_dump(FILE *input,FILE *output,const size_t length)
  }
  else
  {
-  read_data(buffer,length,sizeof(char),input);
-  write_data(buffer,length,sizeof(char),output);
+  read_data(buffer,sizeof(char),length,input);
+  write_data(buffer,sizeof(char),length,output);
   free(buffer);
  }
 
@@ -172,7 +182,7 @@ void fast_data_dump(FILE *input,FILE *output,const size_t length)
 
 void write_output_file(FILE *input,const char *name,const size_t length)
 {
- FILE *output;
+ FILE *output=NULL;
  output=create_output_file(name);
  fast_data_dump(input,output,length);
  fclose(output);
@@ -180,8 +190,8 @@ void write_output_file(FILE *input,const char *name,const size_t length)
 
 char *correct_name(const char *name)
 {
- char *result;
- size_t index;
+ char *result=NULL;
+ size_t index=0;
  for (index=0;index<12;++index)
  {
   if (name[index]==0)
@@ -196,14 +206,30 @@ char *correct_name(const char *name)
 
 char *get_name(const char *path,const char *name)
 {
- char *output=NULL;
+ char *corrected_name=NULL;
  char *result=NULL;
- size_t length;
- output=correct_name(name);
- length=strlen(output)+strlen(path);
- result=get_memory(length+1);
- sprintf(result,"%s%s",path,output);
- free(output);
+ size_t name_length=0;
+ size_t path_length=0;
+ corrected_name=correct_name(name);
+ if (corrected_name!=NULL)
+ {
+  name_length=strlen(corrected_name);
+ }
+ if (path!=NULL)
+ {
+  path_length=strlen(path);
+ }
+ if (path_length>0)
+ {
+  if (name_length>0)
+  {
+   result=get_memory(path_length+name_length+1);
+   strncpy(result,path,path_length);
+   strncat(result,corrected_name,name_length);
+  }
+
+ }
+ free(corrected_name);
  return result;
 }
 
@@ -218,7 +244,7 @@ grp_block *read_blocks(FILE *input,const size_t amount)
 
 void extract(FILE *input,const grp_block *record,const size_t amount,const char *path)
 {
- size_t index;
+ size_t index=0;
  char *output=NULL;
  for (index=0;index<amount;++index)
  {
@@ -232,9 +258,9 @@ void extract(FILE *input,const grp_block *record,const size_t amount,const char 
 
 void work(const char *file,const char *path)
 {
- FILE *input;
+ FILE *input=NULL;
  grp_block *record=NULL;
- size_t amount;
+ size_t amount=0;
  input=open_input_file(file);
  amount=check_format(input);
  record=read_blocks(input,amount);
