@@ -1,8 +1,10 @@
 #include "grpdecompiler.h"
 #include "format.h"
+#include "exitcode.h"
 
 void show_intro();
 void show_message(const char *message);
+void show_error(const char *message);
 void show_progress(const unsigned long int start,const unsigned long int stop);
 FILE *open_input_file(const char *name);
 FILE *create_output_file(const char *name);
@@ -40,7 +42,7 @@ void show_intro()
 {
  putchar('\n');
  puts("GRP DECOMPILER");
- puts("Version 2.4.4");
+ puts("Version 2.4.5");
  puts("The file extraction tool for GRP pseudo-archives by Popov Evgeniy Alekseyevich, 2010-2026 years");
  puts("This program is distributed under the GNU GENERAL PUBLIC LICENSE");
 }
@@ -51,10 +53,17 @@ void show_message(const char *message)
  puts(message);
 }
 
+void show_error(const char *message)
+{
+ fputc('\n',stderr);
+ fputs(message,stderr);
+ fputc('\n',stderr);
+}
+
 void show_progress(const unsigned long int start,const unsigned long int stop)
 {
  putchar('\r');
- printf("Amount of the extracted files: %lu from %lu.The progress:%lu%%",start,stop,(start*100)/stop);
+ printf("Amount of the extracted files: %lu from %lu",start,stop);
 }
 
 FILE *open_input_file(const char *name)
@@ -62,14 +71,14 @@ FILE *open_input_file(const char *name)
  FILE *target=NULL;
  if (name==NULL)
  {
-  puts("Can't open the input file");
-  exit(1);
+  show_error("Can't open the input file");
+  exit(OPEN_FILE_ERROR);
  }
  target=fopen(name,"rb");
  if (target==NULL)
  {
-  puts("Can't open the input file");
-  exit(1);
+  show_error("Can't open the input file");
+  exit(OPEN_FILE_ERROR);
  }
  return target;
 }
@@ -79,36 +88,34 @@ FILE *create_output_file(const char *name)
  FILE *target=NULL;
  if (name==NULL)
  {
-  show_message("Can't create the ouput file");
-  exit(2);
+  show_error("Can't create the ouput file");
+  exit(CREATE_FILE_ERROR);
  }
  target=fopen(name,"wb");
  if (target==NULL)
  {
-  show_message("Can't create the ouput file");
-  exit(2);
+  show_error("Can't create the ouput file");
+  exit(CREATE_FILE_ERROR);
  }
  return target;
 }
 
 void read_data(void *data,const size_t length,const size_t blocks,FILE *input)
 {
- fread(data,length,blocks,input);
- if (ferror(input)!=0)
+ if (fread(data,length,blocks,input)<blocks)
  {
-  show_message("Can't read data!");
-  exit(3);
+  show_error("Can't read data!");
+  exit(READ_DATA_ERROR);
  }
 
 }
 
 void write_data(const void *data,const size_t length,const size_t blocks,FILE *output)
 {
- fwrite(data,length,blocks,output);
- if (ferror(output)!=0)
+ if (fwrite(data,length,blocks,output)<blocks)
  {
-  show_message("Can't write data!");
-  exit(4);
+  show_error("Can't write data!");
+  exit(WRITE_DATA_ERROR);
  }
 
 }
@@ -117,8 +124,8 @@ void check_memory(const void *memory)
 {
  if(memory==NULL)
  {
-  show_message("Can't allocate memory");
-  exit(5);
+  show_error("Can't allocate memory");
+  exit(MEMORY_ALLOCATION_ERROR);
  }
 
 }
@@ -129,8 +136,8 @@ size_t check_format(FILE *input)
  read_data(&target,sizeof(grp_block),1,input);
  if(strncmp(target.information,"KenSilverman",12)!=0)
  {
-  puts("The invalid format!");
-  exit(6);
+  show_error("The invalid format!");
+  exit(INVALID_FORMAT_ERROR);
  }
  return target.length;
 }
