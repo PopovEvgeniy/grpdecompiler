@@ -4,5 +4,5 @@ install:
 	@chmod ugo+rx /bin/grpdecompiler
 	@echo Installation was successfully completed
 uninstall:
-	@rm -f /bin/grpdecompiler
+	@rm /bin/grpdecompiler
 	@echo Uninstallation was successfully completed

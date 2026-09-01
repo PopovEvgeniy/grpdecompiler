@@ -41,8 +41,7 @@ int main(int argc, char *argv[])
 void show_intro()
 {
  putchar('\n');
- puts("GRP DECOMPILER");
- puts("Version 2.4.6");
+ puts("GRP DECOMPILER 2.4.7");
  puts("The file extraction tool for GRP pseudo-archives by Popov Evgeniy Alekseyevich, 2010-2026 years");
  puts("This program is distributed under the GNU GENERAL PUBLIC LICENSE");
 }
@@ -118,7 +117,7 @@ void write_data(const void *data,const size_t length,const size_t blocks,FILE *o
 
 void check_memory(const void *memory)
 {
- if(memory==NULL)
+ if (memory==NULL)
  {
   show_error("Can't allocate memory");
   exit(MEMORY_ALLOCATION_ERROR);
@@ -130,7 +129,7 @@ size_t check_format(FILE *input)
 {
  grp_block target;
  read_data(&target,sizeof(grp_block),1,input);
- if(strncmp(target.information,"KenSilverman",12)!=0)
+ if (strncmp(target.information,"KenSilverman",12)!=0)
  {
   show_error("The invalid format!");
   exit(INVALID_FORMAT_ERROR);
