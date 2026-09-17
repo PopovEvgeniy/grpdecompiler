@@ -1,6 +1,6 @@
                        GRP DECOMPILER 
                           
-                       Version 2.4.7
+                       Version 2.4.9
 
             The file extraction tool for GRP pseudo-archives by Popov Evgeniy Alekseyevich
 
@@ -14,13 +14,14 @@ Always add a directory separator (\ or /) at the end of the output path.
 Exit codes.
 
 0: The operation was successfully completed.
-1: Can't open the input file.
-2: Can't create the output file.
-3: Can't read data!
-4: Can't write data!
-5: Can't allocate memory.
-6: The invalid format.
-7: The command-line arguments is invalid!
+1: The output path is empty.
+2: Can't open the input file.
+3: Can't create the output file.
+4: Can't read data!
+5: Can't write data!
+6: Can't allocate memory.
+7: The invalid format.
+8: The command-line arguments is invalid!
 
 License.
 
@@ -84,4 +85,4 @@ Version history.
 2.3.9: The file processing has improved.
 2.4-2.4.4: The small changes.
 2.4.5-2.4.6: The file processing has improved.
-2.4.7: The small changes.
+2.4.7-2.4.9: The small changes.

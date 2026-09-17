@@ -5,6 +5,7 @@
 void show_intro();
 void show_message(const char *message);
 void show_error(const char *message);
+void check_name(const char *name,const char *message,const int code);
 void show_progress(const unsigned long int start,const unsigned long int stop);
 FILE *open_input_file(const char *name);
 FILE *create_output_file(const char *name);
@@ -25,15 +26,26 @@ void work(const char *file,const char *path);
 int main(int argc, char *argv[])
 {
  show_intro();
- if (argc<3)
+ switch (argc)
  {
+  case 1:
   show_message("You must give a target file name and an output path as the command-line arguments!");
- }
- else
- {
+  exit(COMMAND_LINE_ARGUMENTS_ERROR);
+  break;
+  case 2:
+  show_message("You don't give the output path");
+  exit(COMMAND_LINE_ARGUMENTS_ERROR);
+  break;
+  case 3:
+  check_name(argv[2],"The output path is empty",EMPTY_PATH_ERROR);
   show_message("Extracting the files... Please wait");
   work(argv[1],argv[2]);
   show_message("The work has been finished");
+  break;
+  default:
+  show_message("You gave too many command-line arguments");
+  exit(COMMAND_LINE_ARGUMENTS_ERROR);
+  break;
  }
  return 0;
 }
@@ -41,9 +53,9 @@ int main(int argc, char *argv[])
 void show_intro()
 {
  putchar('\n');
- puts("GRP DECOMPILER 2.4.7");
+ puts("GRP DECOMPILER 2.4.9");
  puts("The file extraction tool for GRP pseudo-archives by Popov Evgeniy Alekseyevich, 2010-2026 years");
- puts("This program is distributed under the GNU GENERAL PUBLIC LICENSE");
+ puts("This program is distributed under the GNU GENERAL PUBLIC LICENSE (version 2 or later) terms");
 }
 
 void show_message(const char *message)
@@ -57,6 +69,21 @@ void show_error(const char *message)
  fputc('\n',stderr);
  fputs(message,stderr);
  fputc('\n',stderr);
+}
+
+void check_name(const char *name,const char *message,const int code)
+{
+ size_t length=0;
+ if (name!=NULL)
+ {
+  length=strlen(name);
+ }
+ if (length==0)
+ {
+  show_error(message);
+  exit(code);
+ }
+
 }
 
 void show_progress(const unsigned long int start,const unsigned long int stop)
