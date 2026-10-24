@@ -1,6 +1,6 @@
                        GRP DECOMPILER 
                           
-                       Version 2.4.9
+                       Version 2.4.9.1
 
             The file extraction tool for GRP pseudo-archives by Popov Evgeniy Alekseyevich
 
@@ -21,7 +21,7 @@ Exit codes.
 5: Can't write data!
 6: Can't allocate memory.
 7: The invalid format.
-8: The command-line arguments is invalid!
+8: The command-line arguments are invalid!
 
 License.
 
@@ -49,21 +49,21 @@ Version history.
 0.1-0.9: The internal unstable builds.
 1.0-1.0.4: The stable branch.
 1.0.5-1.3: The small changes in the source code.
-1.4: The source code has improved. Linux support has been added.
+1.4: The source code has been improved. Linux support has been added.
 1.5: The small changes in the source code.
 1.6: The small bug with the output file names has been fixed.
 1.7-1.8: The small changes in the source code.
-1.9: The filename checking has improved.
+1.9: The filename checking has been improved.
 1.9.0.1: The documentation has been updated.
 1.9.1-1.9.6: The small changes.
 1.9.8-2.0.1: The small bug with the output file names has been fixed.
 2.0.2-2.0.4: The small changes.
 2.0.4.1: The makefile has been updated.
 2.0.5-2.0.6: The small changes.
-2.0.7: A small bug has been fixed.
+2.0.7: The small bug has been fixed.
 2.0.7.1-2.0.7.2: The makefile has been updated.
 2.0.8: 2.1.3: The small changes.
-2.1.4: Visual C++ support has improved.
+2.1.4: Visual C++ support has been improved.
 2.1.4.1: The documentation has been updated.
 2.1.5: The small changes.
 2.1.5.1-2.1.5.2: The documentation has been updated.
@@ -73,16 +73,17 @@ Version history.
 2.1.7.2: The documentation has been updated.
 2.1.8: The small changes.
 2.1.8.1: The documentation has been updated.
-2.1.9: The extraction process has improved.
-2.2: A small bug has been fixed.
+2.1.9: The extraction process has been improved.
+2.2: The small bug has been fixed.
 2.2.1-2.2.5: The small changes.
-2.2.6: The memory usage has reduced.
+2.2.6: The memory usage has been reduced.
 2.2.7: The small changes.
-2.2.8: The extraction process has improved.
+2.2.8: The extraction process has been improved.
 2.2.9-2.3.6: The small changes.
-2.3.7: The file processing has improved.
+2.3.7: The file processing has been improved.
 2.3.8: The small changes.
-2.3.9: The file processing has improved.
+2.3.9: The file processing has been improved.
 2.4-2.4.4: The small changes.
-2.4.5-2.4.6: The file processing has improved.
+2.4.5-2.4.6: The file processing has been improved.
 2.4.7-2.4.9: The small changes.
+2.4.9.1: The documentation has been updated.
